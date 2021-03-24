@@ -1,3 +1,6 @@
+var asideLeft = document.querySelector(".left");
+var asideright = document.querySelector(".right");
+var allInputs = document.querySelectorAll("input");
 var firstPlayerInp = document.querySelector(".first-player");
 var secondPlayerInp = document.querySelector(".second-player");
 var gamersNames = document.querySelector(".gamers-names");
@@ -8,12 +11,31 @@ var canIStartGame = false;
 var vinfirst = "";
 var vinSecond = "";
 var gameEnd = false
-  
+
+var btnNumber = 0;
+
+for(var i = 0; i < allInputs.length; i++)
+{
+    allInputs[i].addEventListener("click",function(){
+        this.style.border = "1px solid #ced4da";
+    })
+}
 
 startBtn.addEventListener("click", function () {
+    
     if(firstPlayerInp.value != "" && secondPlayerInp.value != ""){
+        if(window.innerWidth < 850){
+            asideright.style.display = "block";
+            asideLeft.style.display = "none";
+        }
+
         canIStartGame = true;
         setNamesToGames(firstPlayerInp, secondPlayerInp);
+
+
+    }else{
+        firstPlayerInp.style.border = "1px solid red";
+        secondPlayerInp.style.border = "1px solid red";
     }
 });
 
@@ -27,7 +49,6 @@ function checkWinnerLogic(){
      
                  letter = allGameBoxBtns[i].textContent;
                  gameEnd = true;
-                 console.log(letter);
              }
         }
 
@@ -38,7 +59,6 @@ function checkWinnerLogic(){
      
                  letter = allGameBoxBtns[i].textContent;
                  gameEnd = true;
-                 console.log(letter);
              }
         }
 
@@ -49,18 +69,16 @@ function checkWinnerLogic(){
      
                  letter = allGameBoxBtns[i].textContent;
                  gameEnd = true;
-                 console.log(letter);
              }
         }
 
-        if(i == 6 ||i == 7 || i == 8){
+        else if(i == 6 ||i == 7 || i == 8){
             if(allGameBoxBtns[i].textContent == allGameBoxBtns[i-3].textContent
                 && allGameBoxBtns[i].textContent == allGameBoxBtns[i-6].textContent
                 && allGameBoxBtns[i].textContent != ""){
      
                  letter = allGameBoxBtns[i].textContent;
                  gameEnd = true;
-                 console.log(letter);
              }
         }
     }
@@ -71,6 +89,9 @@ function checkWinnerLogic(){
     }
     else if(letter == "O"){
         alert(`Won : ${vinSecond}`);
+        window.location.reload()
+    }else if(btnNumber == 9 && letter == ""){
+        alert("Draw");
         window.location.reload()
     }
 }
@@ -89,9 +110,15 @@ for (var i = 0; i < allGameBoxBtns.length; i++) {
         if(!gameEnd){
             if (canIStartGame) {
                 if (isFirstPlayerReady)
-                    this.textContent = "X";
+                    {
+                        this.textContent = "X";
+                        btnNumber++
+                    }
                 else
-                    this.textContent = "O";
+                    {
+                        this.textContent = "O";
+                        btnNumber++
+                    }
                 this.disabled  = true;
                 isFirstPlayerReady = !isFirstPlayerReady;
                 checkWinnerLogic();

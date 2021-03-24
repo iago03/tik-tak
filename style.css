@@ -11,12 +11,18 @@ body {
 main {
     margin: 100px auto;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    width: 75%;
 }
 
 .left {
     display: flex;
     align-items: center;
+}
+
+.right{
+    display: block;
 }
 
 .right h3 {
@@ -63,4 +69,38 @@ table td button {
 
 table td button:hover {
     border:1px solid rgb(13, 248, 170);
+}
+
+/* respons */
+@media screen and (max-width:1030px){
+    main{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:850px){
+    main{
+        justify-content: center;
+    }
+
+
+    main .right{
+        display: none;
+    }
+}
+
+@media screen and (max-width:420px){
+    main .left h1{
+        text-align: center;
+    }
+
+
+    main .right h3{
+        font-size: 22px;
+    }
+
+    main .right table{
+        width: 300px;
+        height: 300px;
+    }
 }
